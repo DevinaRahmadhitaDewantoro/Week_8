@@ -41,7 +41,7 @@ void insertionSortValue(Student studentData[], int n) {
     for (int j = 1; j < n; j++) {
         int i = j - 1;
         Student temp = studentData[j];
-        while (i >= 0 && studentData[i].NISN < temp.NISN) {
+        while (i >= 0 && studentData[i].Value < temp.Value) {
             studentData[i + 1] = studentData[i];
             i--;
         }
@@ -199,7 +199,7 @@ int main() {
 
     // Test 6: Bubble Sort by Value
     bubbleSortValue(students, n);
-    if (students[0].NISN > students[1].NISN) {
+    if (students[0].Value > students[1].Value) {
         cout << "Test 6 (Bubble Sort by Value): Passed\n";
     } else {
         cout << "Test 6 (Bubble Sort by Value): Failed\n";

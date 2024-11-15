@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-#include <iomanip> // For setw
 using namespace std;
 
 struct Student {
@@ -9,21 +8,6 @@ struct Student {
     int Value;
 };
 
-// Function to display students' data
-void display(Student studentsData[], int n) {
-    cout << left;
-    cout << setw(15) << "NISN" << setw(30) << "Name" << "Value\n";
-    cout << "---------------------------------------------------------------\n";
-    for (int i = 0; i < n; i++) {
-        cout << setw(15) << studentsData[i].NISN
-             << setw(30) << studentsData[i].Name
-             << studentsData[i].Value << endl;
-    }
-    cout << endl;
-}
-
-
-// Insertion sort for NISN (descending order)
 void insertionSortNISN(Student studentData[], int n) {
     for (int j = 1; j < n; j++) {
         int i = j - 1;
@@ -36,12 +20,11 @@ void insertionSortNISN(Student studentData[], int n) {
     }
 }
 
-// Insertion sort for Value (descending order)
 void insertionSortValue(Student studentData[], int n) {
     for (int j = 1; j < n; j++) {
         int i = j - 1;
         Student temp = studentData[j];
-        while (i >= 0 && studentData[i].Value < temp.Value) {
+        while (i >= 0 && studentData[i].Value < temp.Value) { 
             studentData[i + 1] = studentData[i];
             i--;
         }
@@ -49,8 +32,6 @@ void insertionSortValue(Student studentData[], int n) {
     }
 }
 
-
-// Selection sort for NISN (descending order)
 void selectionSortNISN(Student studentData[], int n) {
     for (int i = 0; i < n - 1; i++) {
         int maxIdx = i;
@@ -65,7 +46,6 @@ void selectionSortNISN(Student studentData[], int n) {
     }
 }
 
-// Selection sort for Value (descending order)
 void selectionSortValue(Student studentData[], int n) {
     for (int i = 0; i < n - 1; i++) {
         int maxIdx = i;
@@ -80,7 +60,6 @@ void selectionSortValue(Student studentData[], int n) {
     }
 }
 
-// Bubble sort for NISN (descending order)
 void bubbleSortNISN(Student studentData[], int n) {
     for (int i = 0; i < n - 1; i++) {
         for (int j = 0; j < n - i - 1; j++) {
@@ -93,7 +72,6 @@ void bubbleSortNISN(Student studentData[], int n) {
     }
 }
 
-// Bubble sort for Value (descending order)
 void bubbleSortValue(Student studentData[], int n) {
     for (int i = 0; i < n - 1; i++) {
         for (int j = 0; j < n - i - 1; j++) {
@@ -114,35 +92,52 @@ bool binarySearchNISN(Student studentData[], int n, long long targetNISN) {
         int mid = left + (right - left) / 2;
 
         if (studentData[mid].NISN == targetNISN) {
-            // Found the student
-            cout << "Found student with NISN " << targetNISN << ":\n";
-            cout << "NISN: " << studentData[mid].NISN << ", Name: " << studentData[mid].Name << ", Value: " << studentData[mid].Value << endl;
             return true;
         }
 
         if (studentData[mid].NISN < targetNISN) {
-            left = mid + 1; // Look in the right half
+            left = mid + 1;
         } else {
-            right = mid - 1; // Look in the left half
+            right = mid - 1;
         }
     }
 
-    // Not found
-    cout << "No student found with NISN " << targetNISN << endl;
     return false;
 }
 
-
-// Sequential search to change name
-bool sequentialSearchAndChangeName(Student studentData[], int n) {
-    bool found = false;
+void sequentialSearchAndChangeName(Student studentData[], int n) {
     for (int i = 0; i < n; i++) {
         if (studentData[i].Value == 60) {
             studentData[i].Name = "Joko";
-            found = true;
         }
     }
-    return found;
+}
+
+bool isSortedByNISN(Student studentData[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        if (studentData[i].NISN < studentData[i + 1].NISN) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool isSortedByValue(Student studentData[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        if (studentData[i].Value < studentData[i + 1].Value) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool allValue60NamedJoko(Student studentData[], int n) {
+    for (int i = 0; i < n; i++) {
+        if (studentData[i].Value == 60 && studentData[i].Name != "Joko") {
+            return false;
+        }
+    }
+    return true;
 }
 
 int main() {
@@ -157,67 +152,68 @@ int main() {
     };
     int n = sizeof(students) / sizeof(students[0]);
 
-    // Test 1: Insertion Sort by NISN
+    cout << "Test 1: Insertion Sort by NISN\n";
     insertionSortNISN(students, n);
-    if (students[0].NISN > students[1].NISN) {
-        cout << "Test 1 (Insertion Sort by NISN): Passed\n";
+    if (isSortedByNISN(students, n)) {
+        cout << "Result: Test Passed\n\n";
     } else {
-        cout << "Test 1 (Insertion Sort by NISN): Failed\n";
+        cout << "Result: Test Failed\n\n";
     }
 
-    // Test 2: Selection Sort by NISN
-    selectionSortNISN(students, n);
-    if (students[0].NISN > students[1].NISN) {
-        cout << "Test 2 (Selection Sort by NISN): Passed\n";
-    } else {
-        cout << "Test 2 (Selection Sort by NISN): Failed\n";
-    }
-
-    // Test 3: Bubble Sort by NISN
-    bubbleSortNISN(students, n);
-    if (students[0].NISN > students[1].NISN) {
-        cout << "Test 3 (Bubble Sort by NISN): Passed\n";
-    } else {
-        cout << "Test 3 (Bubble Sort by NISN): Failed\n";
-    }
-
-    // Test 4: Insertion Sort by Value
+    cout << "Test 2: Insertion Sort by Value\n";
     insertionSortValue(students, n);
-    if (students[0].Value > students[1].Value) {
-        cout << "Test 4 (Insertion Sort by Value): Passed\n";
+    if (isSortedByValue(students, n)) {
+        cout << "Result: Test Passed\n\n";
     } else {
-        cout << "Test 4 (Insertion Sort by Value): Failed\n";
+        cout << "Result: Test Failed\n\n";
     }
 
-    // Test 5: Selection Sort by Value
-    selectionSortValue(students, n);
-    if (students[0].Value > students[1].Value) {
-        cout << "Test 5 (Selection Sort by Value): Passed\n";
-    } else {
-        cout << "Test 5 (Selection Sort by Value): Failed\n";
-    }
-
-    // Test 6: Bubble Sort by Value
-    bubbleSortValue(students, n);
-    if (students[0].Value > students[1].Value) {
-        cout << "Test 6 (Bubble Sort by Value): Passed\n";
-    } else {
-        cout << "Test 6 (Bubble Sort by Value): Failed\n";
-    }
-
-    // Test 7: Binary Search for NISN 9950310962
+    cout << "Test 3: Binary Search for Ronaldo's NISN\n";
     if (binarySearchNISN(students, n, 9950310962)) {
-        cout << "Test 7 (Binary Search for NISN 9950310962): Passed\n";
+        cout << "Result: Test Passed\n\n";
     } else {
-        cout << "Test 7 (Binary Search for NISN 9950310962): Failed\n";
+        cout << "Result: Test Failed\n\n";
     }
 
-    // Test 8: Sequential Search to change Value 60 to "Joko"
-    if (sequentialSearchAndChangeName(students, n)) {
-        cout << "Test 8 (Sequential Search and Name Change): Passed\n";
+    cout << "Test 4: Selection Sort by NISN\n";
+    selectionSortNISN(students, n);
+    if (isSortedByNISN(students, n)) {
+        cout << "Result: Test Passed\n\n";
     } else {
-        cout << "Test 8 (Sequential Search and Name Change): Failed\n";
+        cout << "Result: Test Failed\n\n";
+    }
+
+    cout << "Test 5: Selection Sort by Value\n";
+    selectionSortValue(students, n);
+    if (isSortedByValue(students, n)) {
+        cout << "Result: Test Passed\n\n";
+    } else {
+        cout << "Result: Test Failed\n\n";
+    }
+
+    cout << "Test 6: Bubble Sort by NISN\n";
+    bubbleSortNISN(students, n);
+    if (isSortedByNISN(students, n)) {
+        cout << "Result: Test Passed\n\n";
+    } else {
+        cout << "Result: Test Failed\n\n";
+    }
+
+    cout << "Test 7: Bubble Sort by Value\n";
+    bubbleSortValue(students, n);
+    if (isSortedByValue(students, n)) {
+        cout << "Result: Test Passed\n\n";
+    } else {
+        cout << "Result: Test Failed\n\n";
+    }
+
+    cout << "Test 8: Change Name to 'Joko' for Students with Value 60\n";
+    sequentialSearchAndChangeName(students, n);
+    if (allValue60NamedJoko(students, n)) {
+        cout << "Result: Test Passed\n\n";
+    } else {
+        cout << "Result: Test Failed\n\n";
     }
 
     return 0;
-} 
+}

@@ -34,12 +34,13 @@ void insertionSortNISN(Student studentData[], int n) {
         studentData[i + 1] = temp;
     }
 }
+
 // Insertion sort for Value (descending order)
 void insertionSortValue(Student studentData[], int n) {
     for (int j = 1; j < n; j++) {
         int i = j - 1;
         Student temp = studentData[j];
-        while (i >= 0 && studentData[i].NISN < temp.NISN) {
+        while (i >= 0 && studentData[i].Value < temp.Value) { 
             studentData[i + 1] = studentData[i];
             i--;
         }
@@ -67,7 +68,7 @@ void selectionSortValue(Student studentData[], int n) {
     for (int i = 0; i < n - 1; i++) {
         int maxIdx = i;
         for (int j = i + 1; j < n; j++) {
-            if (studentData[j].Value > studentData[maxIdx].Value) {
+            if (studentData[j].Value > studentData[maxIdx].Value) { 
                 maxIdx = j;
             }
         }
@@ -94,7 +95,7 @@ void bubbleSortNISN(Student studentData[], int n) {
 void bubbleSortValue(Student studentData[], int n) {
     for (int i = 0; i < n - 1; i++) {
         for (int j = 0; j < n - i - 1; j++) {
-            if (studentData[j].Value < studentData[j + 1].Value) {
+            if (studentData[j].Value < studentData[j + 1].Value) { 
                 Student temp = studentData[j];
                 studentData[j] = studentData[j + 1];
                 studentData[j + 1] = temp;
@@ -135,7 +136,7 @@ void sequentialSearchAndChangeName(Student studentData[], int n) {
     }
 }
 
-    bool binarySearchNISN(Student studentData[], int n, long long targetNISN) {
+bool binarySearchNISN(Student studentData[], int n, long long targetNISN) {
     int left = 0;
     int right = n - 1;
 
@@ -177,33 +178,32 @@ int main() {
     insertionSortNISN(students, n);
 
     // First display: insertion Sort by NISN in descending order
-    cout << "Display 1: Sorted by NISN (Descending)" << endl;
+    cout << "Display 1: insertion Sorted by NISN (Descending)" << endl;
     display(students, n);
 
     // Second display: insertion Sort by Value in descending order
     insertionSortValue(students, n);
-    cout << "Display 2: Sorted by Value (Descending)" << endl;
+    cout << "Display 2: insertion Sorted by Value (Descending)" << endl;
     display(students, n);
 
     // Third display: selection Sort by NISN in descending order
     selectionSortNISN(students, n);
-    cout << "Display 3: Sorted by Value (Descending)" << endl;
+    cout << "Display 3: selection Sorted by NISN (Descending)" << endl;
     display(students, n);
-
 
     // Fourth display: selection Sort by Value in descending order
     selectionSortValue(students, n);
-    cout << "Display 4: Sorted by Value (Descending)" << endl;
+    cout << "Display 4: selection Sorted by Value (Descending)" << endl;
     display(students, n);
 
     // Fifth display: bubble Sort by NISN in descending order
     bubbleSortNISN(students, n);
-    cout << "Display 5: Sorted by Value (Descending)" << endl;
+    cout << "Display 5: bubble Sorted by NISN (Descending)" << endl;
     display(students, n);
 
-     // Sixth display: bubble Sort by Value in descending order
+    // Sixth display: bubble Sort by Value in descending order
     bubbleSortValue(students, n);
-    cout << "Display 6: Sorted by Value (Descending)" << endl;
+    cout << "Display 6: bubble Sorted by Value (Descending)" << endl;
     display(students, n);
 
     // Change students with Value 60 to "Joko"

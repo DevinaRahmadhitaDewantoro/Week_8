@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <iomanip> // For setw
 using namespace std;
 
 struct Student {
@@ -10,11 +11,17 @@ struct Student {
 
 // Function to display students' data
 void display(Student studentsData[], int n) {
+    cout << left;
+    cout << setw(15) << "NISN" << setw(30) << "Name" << "Value\n";
+    cout << "---------------------------------------------------------------\n";
     for (int i = 0; i < n; i++) {
-        cout << studentsData[i].NISN << " " << studentsData[i].Name << " " << studentsData[i].Value << endl;
+        cout << setw(15) << studentsData[i].NISN
+             << setw(30) << studentsData[i].Name
+             << studentsData[i].Value << endl;
     }
     cout << endl;
 }
+
 
 // Insertion sort for NISN (descending order)
 void insertionSortNISN(Student studentData[], int n) {
